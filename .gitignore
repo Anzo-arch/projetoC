@@ -1,0 +1,21 @@
+# Compilados
+*.o
+*.out
+*.exe
+bin/
+obj/
+lib/*.a
+*.so
+
+# Logs e dados gerados
+datalog.csv
+historico.txt
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Porta virtual e temporários
+/tmp/
+
+# Arquivos de dependências (opcional)
