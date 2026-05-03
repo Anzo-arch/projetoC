@@ -1,0 +1,51 @@
+name: CI - Compilação e Testes
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar dependências
+        run: sudo apt-get update && sudo apt-get install -y build-essential freeglut3-dev libgl1-mesa-dev libglu1-mesa-dev socat
+
+      - name: Compilar Projeto 1 (Calculadora)
+        working-directory: calcmodular
+        run: |
+          gcc -Iinclude -c src/somar.c -o obj/somar.o
+          gcc -Iinclude -c src/subtrair.c -o obj/subtrair.o
+          gcc -Iinclude -c src/multiplicar.c -o obj/multiplicar.o
+          gcc -Iinclude -c src/dividir.c -o obj/dividir.o
+          gcc -Iinclude -c src/potencia.c -o obj/potencia.o
+          ar rcs lib/libmat.a obj/somar.o obj/subtrair.o obj/multiplicar.o obj/dividir.o obj/potencia.o
+          gcc -Iinclude src/main.c -Llib -lmat -o bin/calculadora
+
+      - name: Executar testes da Calculadora
+        working-directory: calcmodular
+        run: |
+          gcc -Iinclude test/test_operacoes.c lib/libmat.a -o test/test_operacoes
+          ./test/test_operacoes
+
+      - name: Compilar Projeto 2 (Visualizador)
+        working-directory: visualizador
+        run: gcc main.c -lglut -lGLU -lGL -lm -o visualizador
+
+      - name: Compilar Projeto 3 (Serial)
+        working-directory: estacao_serial
+        run: gcc leitor.c -o leitor
+
+      - name: Compilar Projeto 4 (Servidor)
+        working-directory: servidor_monitor
+        run: gcc -pthread servidor.c -o servidor
+
+      - name: Compilar Projeto 5 (Dashboard)
+        working-directory: dashboard_iot
+        run: |
+          gcc -pthread servidor.c -o servidor
+          gcc -pthread dashboard.c -lglut -lGLU -lGL -lm -o dashboard
