@@ -46,7 +46,7 @@ void ler_csv(const char* arquivo) {
     while (fgets(linha, sizeof(linha), f) && num_pontos < MAX_PONTOS) {
         char nome[MAX_NOME];
         float val;
-        if (sscanf(linha, "%[^,],%f", nome, &val) == 2) {
+        if (sscanf(linha, "%49[^,],%f", nome, &val) == 2) {
             strncpy(nomes[num_pontos], nome, MAX_NOME - 1);
             nomes[num_pontos][MAX_NOME - 1] = '\0';
             valores[num_pontos] = val;
