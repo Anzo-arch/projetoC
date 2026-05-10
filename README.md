@@ -21,3 +21,9 @@ Repositório criado para consolidar, na prática, os principais conceitos da dis
 ```bash
 sudo apt update
 sudo apt install -y build-essential freeglut3-dev libgl1-mesa-dev libglu1-mesa-dev socat
+## 📐 Modelagem UML
+
+O sistema foi projetado utilizando diagramas UML versionados neste repositório.
+
+- [Diagrama de Casos de Uso](docs/uml/casos-de-uso.md)
+- [Diagrama de Classes](docs/uml/diagrama-classes.md)

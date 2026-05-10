@@ -1,0 +1,5 @@
+[1mvisualizador/main.c:49:13: [31mwarning:[39m sscanf() without field width limits can crash with huge input data. [invalidscanf][0m
+        if (sscanf(linha, "%[^,],%f", nome, &val) == 2) {
+            ^
+[1mnofile:0:0: [31minformation:[39m Cppcheck cannot find all the include files (use --check-config for details) [missingInclude][0m
+
